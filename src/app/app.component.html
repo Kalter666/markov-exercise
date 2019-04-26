@@ -22,6 +22,11 @@
             <div class="field">
               <input type="number" min="0" max="1" step="0.01" formControlName="r">
               <p class="help is-uppercase">вероятность поломки за 1 шаг</p>
+              <div *ngIf="r.invalid && (r.dirty || r.touched)" class="help is-uppercase has-text-danger">
+                <p *ngIf="r.errors.required">r is required</p>
+                <p *ngIf="r.errors.min">r must be above 0</p>
+                <p *ngIf="r.errors.max">r must be below 1</p>
+              </div>
             </div>
           </div>
         </div>
@@ -34,6 +39,11 @@
             <div class="field">
               <input type="number" min="0" max="1" step="0.01" formControlName="q">
               <p class="help is-uppercase">вероятность ремонта за 1 шаг</p>
+              <div *ngIf="q.invalid && (q.dirty || q.touched)" class="help is-uppercase has-text-danger">
+                  <p *ngIf="q.errors.required">r is required</p>
+                  <p *ngIf="q.errors.min">r must be above 0</p>
+                  <p *ngIf="q.errors.max">r must be below 1</p>
+                </div>
             </div>
           </div>
         </div>
@@ -51,7 +61,7 @@
           </div>
           <div class="field-body">
             <div class="field">
-              <input type="number" min="0" max="1" step="0.01">
+              <span>{{ ir }}</span>
               <p class="help is-uppercase">вероятность не отказа за 1 шаг</p>
             </div>
           </div>
@@ -63,7 +73,7 @@
           </div>
           <div class="field-body">
             <div class="field">
-              <input type="number" min="0" max="1" step="0.01">
+              <span>{{ iq }}</span>
               <p class="help is-uppercase">вероятность не ремонта за 1 шаг</p>
             </div>
           </div>
@@ -83,15 +93,23 @@
         </tr>
         <tr>
           <th>S0</th>
+          <td *ngFor="let val of transitionMatrix[0]">{{ val }}</td>
+          <td>{{ rowsSum[0] }}</td>
         </tr>
         <tr>
           <th>S1</th>
+          <td *ngFor="let val of transitionMatrix[1]">{{ val }}</td>
+          <td>{{ rowsSum[1] }}</td>
         </tr>
         <tr>
           <th>S2</th>
+          <td *ngFor="let val of transitionMatrix[2]">{{ val }}</td>
+          <td>{{ rowsSum[2] }}</td>
         </tr>
         <tr>
           <th>S3</th>
+          <td *ngFor="let val of transitionMatrix[3]">{{ val }}</td>
+          <td>{{ rowsSum[3] }}</td>
         </tr>
       </table>
     </div>
