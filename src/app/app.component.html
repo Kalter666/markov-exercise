@@ -1,0 +1,100 @@
+<div class="container">
+  <h1 class="is-size-2 has-text-centered">Стационарное распределение</h1>
+  <hr>
+  <div class="columns">
+    <div class="column">
+      Состояния:
+      <ul>
+        <li>S0 - все исправны;</li>
+        <li>S1 -1 не исправна, 2 исправны;</li>
+        <li>S2 – 2 не исправны, 1 исправна;</li>
+        <li>S3 – все не исправны.</li>
+      </ul>
+    </div>
+
+    <div class="column">
+      <form [formGroup]="calculateGroup">
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">r:</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <input type="number" min="0" max="1" step="0.01" formControlName="r">
+              <p class="help is-uppercase">вероятность поломки за 1 шаг</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">q:</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <input type="number" min="0" max="1" step="0.01" formControlName="q">
+              <p class="help is-uppercase">вероятность ремонта за 1 шаг</p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr>
+
+  <div class="columns">
+    <div class="column">
+      <fieldset disabled>
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">1-r:</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <input type="number" min="0" max="1" step="0.01">
+              <p class="help is-uppercase">вероятность не отказа за 1 шаг</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">1-q:</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <input type="number" min="0" max="1" step="0.01">
+              <p class="help is-uppercase">вероятность не ремонта за 1 шаг</p>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="column">
+      <table class="table is-bordered is-fullwidth">
+        <tr>
+          <th>P</th>
+          <th>S0</th>
+          <th>S1</th>
+          <th>S2</th>
+          <th>S3</th>
+          <th>&#8721;</th>
+        </tr>
+        <tr>
+          <th>S0</th>
+        </tr>
+        <tr>
+          <th>S1</th>
+        </tr>
+        <tr>
+          <th>S2</th>
+        </tr>
+        <tr>
+          <th>S3</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
