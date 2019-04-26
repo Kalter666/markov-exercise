@@ -21,9 +21,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.calculateGroup = this.formBuilder.group({
-      r: new FormControl(0, [Validators.required]),
-      q: new FormControl(0, [Validators.required])
+      r: new FormControl(0.2, [Validators.required, Validators.min(0), Validators.max(1)]),
+      q: new FormControl(0.3, [Validators.required, Validators.min(0), Validators.max(1)])
     });
+    this.changeValues(this.calculateGroup.value.r, this.calculateGroup.value.q);
     this.calculateGroup.valueChanges.subscribe(({ r, q }) => this.changeValues(r, q));
   }
 
@@ -31,9 +32,17 @@ export class AppComponent implements OnInit {
     this.dispersionService.r = r;
     this.dispersionService.q = q;
     this.transitionMatrix = this.dispersionService.getTransitionMatrix();
-    this.rowsSum = this.dispersionService.checkTransitionMatrix();
+    this.rowsSum = this.dispersionService.checkTransitionMatrix(this.transitionMatrix);
     const { ir, iq } = this.dispersionService.getInverse();
-    this.ir = ir;
-    this.iq = iq;
+    this.ir = +ir.toFixed(4);
+    this.iq = +iq.toFixed(4);
+  }
+
+  get r() {
+    return this.calculateGroup.get('r');
+  }
+
+  get q() {
+    return this.calculateGroup.get('q');
   }
 }
