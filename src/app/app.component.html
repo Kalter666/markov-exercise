@@ -112,6 +112,16 @@
           <td>{{ rowsSum[3] }}</td>
         </tr>
       </table>
+      <hr>
+
+      <h2 class="is-size-5 has-text-weight-semibold">Система для поиска стационарного рапределения</h2>
+      <table class="table is-bordered is-fullwidth">
+        <tr *ngFor="let row of system; let i = index">
+          <td *ngFor="let val of row">{{ val }}</td>
+          <td>=</td>
+          <td>{{ sumSys[i] }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 

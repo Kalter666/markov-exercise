@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { inv, multiply, transpose } from 'mathjs';
 
 @Injectable({
   providedIn: 'root'
@@ -55,14 +56,31 @@ export class DispersionService {
 
   getSystem(): any {
     const matrix = this.transitionMatrix;
-    for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
+    const trM: any = transpose(matrix);
+    for (let i = 0; i < trM.length; i++) {
+      for (let j = 0; j < trM[i]; j++) {
         if (i === j) {
-          matrix[i][j] = matrix[i][j] - 1;
+          trM[i][j] = trM[i][j] - 1;
+        }
+        if (i === (trM.length - 1)) {
+          trM[i][j] = 1;
         }
       }
     }
-    const check = this.checkTransitionMatrix(matrix);
-    return { matrix, check };
+    const reducer = (sum: number, val: number) => sum + val;
+    const sumR = trM.map((row: number[]) => row.reduce(reducer, 0));
+    sumR[sumR.length - 1] = 1;
+    return {
+      matrix: trM,
+      sum: sumR
+    };
+  }
+
+  getInv() {
+    const { matrix } = this.getSystem();
+    return inv(matrix);
+  }
+
+  getStatDisp() {
   }
 }
