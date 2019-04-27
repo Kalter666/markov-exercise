@@ -41,7 +41,7 @@ export class DispersionService {
       [trplQ, 3 * iq * sqrQ, 3 * this.q * sqrIq, trplIq]
     ];
 
-    this.transitionMatrix = matrix.map(row => row.map(val => +val.toFixed(3)));
+    this.transitionMatrix = matrix;
     return this.transitionMatrix;
   }
 
@@ -58,7 +58,7 @@ export class DispersionService {
     const matrix = this.transitionMatrix;
     const trM: any = transpose(matrix);
     for (let i = 0; i < trM.length; i++) {
-      for (let j = 0; j < trM[i]; j++) {
+      for (let j = 0; j < trM[i].length; j++) {
         if (i === j) {
           trM[i][j] = trM[i][j] - 1;
         }
@@ -67,8 +67,7 @@ export class DispersionService {
         }
       }
     }
-    const reducer = (sum: number, val: number) => sum + val;
-    const sumR = trM.map((row: number[]) => row.reduce(reducer, 0));
+    const sumR = trM.map(() => 0);
     sumR[sumR.length - 1] = 1;
     return {
       matrix: trM,
@@ -82,5 +81,15 @@ export class DispersionService {
   }
 
   getStatDisp() {
+    const matrix = this.getInv();
+    const { sum } = this.getSystem();
+    return multiply(matrix, sum);
+  }
+
+  checkStatDisp() {
+    const transitionM: any = this.getTransitionMatrix();
+    const statD = this.getStatDisp();
+    const trIM = transpose(transitionM);
+    return multiply(trIM, statD);
   }
 }

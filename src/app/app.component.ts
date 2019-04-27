@@ -19,6 +19,12 @@ export class AppComponent implements OnInit {
   system: number[][];
   sumSys: number[];
 
+  invM: any;
+
+  multiM: any;
+
+  statD: any;
+
   constructor(private dispersionService: DispersionService, private formBuilder: FormBuilder) {
   }
 
@@ -40,6 +46,12 @@ export class AppComponent implements OnInit {
     const { matrix, sum } = this.dispersionService.getSystem();
     this.system = matrix;
     this.sumSys = sum;
+
+    this.invM = this.dispersionService.getInv();
+
+    this.multiM = this.dispersionService.getStatDisp();
+
+    this.statD = this.dispersionService.checkStatDisp();
 
     const { ir, iq } = this.dispersionService.getInverse();
     this.ir = +ir.toFixed(4);
