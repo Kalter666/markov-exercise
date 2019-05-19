@@ -10,6 +10,8 @@ export const INITIAL_MATRIX: number[][] = [
   [0, 0, 0, 0, 1],
 ];
 
+export const INITIAL_STATE_DISPERSION = [0.8, 0.2, 0, 0, 0];
+
 @Injectable({
   providedIn: 'root'
 })

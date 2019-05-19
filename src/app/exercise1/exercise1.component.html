@@ -1,25 +1,57 @@
-<div class="columns">
-  <div class="column">
-    <div class="container">
-      <h2 class="is-size-5 has-text-weight-semibold">Матрица переходных состояний</h2>
-      <form [formGroup]="transitionMatrixForm">
-        <table class="table is-bordered is-fullwidth">
-          <tr>
-            <th>P</th>
-            <th>S0</th>
-            <th>S1</th>
-            <th>S2</th>
-            <th>S3</th>
-            <th>&#8721;</th>
-          </tr>
-          <tr *ngFor="let row of matrixVals; index as i">
-            <td *ngFor="let val of row">
-                <app-dynamic-form-val [question]="val" [form]="transitionMatrixForm"></app-dynamic-form-val>
-            </td>
-            <td>{{ sumOfRows[i] }}</td>
-          </tr>
-        </table>
-      </form>
-    </div>
-  </div>
+<div class="container">
+  <h2 class="is-size-5 has-text-weight-semibold">Матрица переходных состояний</h2>
+  <form [formGroup]="transitionMatrixForm">
+    <table class="table is-bordered is-fullwidth">
+      <tr>
+        <th>P</th>
+        <th>S0</th>
+        <th>S1</th>
+        <th>S2</th>
+        <th>S3</th>
+        <th>&#8721;</th>
+      </tr>
+      <tr *ngFor="let row of matrixVals; index as i">
+        <td *ngFor="let val of row">
+          <app-dynamic-form-val [question]="val" [form]="transitionMatrixForm"></app-dynamic-form-val>
+        </td>
+        <td>{{ sumOfRows[i] }}</td>
+      </tr>
+    </table>
+  </form>
 </div>
+<div class="container">
+  <form [formGroup]="initialStateDispersionForm">
+    <h2 class="is-size-5 has-text-weight-semibold">Начальное распределение вероятностей состояний системы</h2>
+    <div class="field is-horizontal">
+      <label>
+        &#960;<sub>1</sub>(0):
+      </label>
+      <input type="number" class="input" min="0" max="1" step="0.01" formControlName="first">
+    </div>
+    <div class="field  is-horizontal">
+      <label>
+        &#960;<sub>2</sub>(0):
+      </label>
+      <input type="number" class="input" min="0" max="1" step="0.01" formControlName="second">
+    </div>
+    <div class="field  is-horizontal">
+      <label>
+        &#960;<sub>3</sub>(0):
+      </label>
+      <input type="number" class="input" min="0" max="1" step="0.01" formControlName="third">
+    </div>
+    <div class="field  is-horizontal">
+      <label>
+        &#960;<sub>4</sub>(0):
+      </label>
+      <input type="number" class="input" min="0" max="1" step="0.01" formControlName="fourth">
+    </div>
+    <div class="field is-horizontal">
+      <label>
+        &#960;<sub>5</sub>(0):
+      </label>
+      <input type="number" class="input" min="0" max="1" step="0.01" formControlName="fifth">
+    </div>
+  </form>
+</div>
+<hr>
