@@ -1,0 +1,164 @@
+<div class="container">
+  <h1 class="is-size-2 has-text-centered">Задача про комплюктеры</h1>
+  <hr>
+  <div class="columns">
+    <div class="column">
+      Состояния:
+      <ul>
+        <li>S0 – все исправны;</li>
+        <li>S1 – 1 не исправна, 2 исправны;</li>
+        <li>S2 – 2 не исправны, 1 исправна;</li>
+        <li>S3 – все не исправны.</li>
+      </ul>
+    </div>
+
+    <div class="column">
+      <form [formGroup]="calculateGroup">
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">r:</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <input class="input" type="number" min="0" max="1" step="0.01" formControlName="r">
+              <p class="help is-uppercase">вероятность поломки за 1 шаг</p>
+              <div *ngIf="r.invalid && (r.dirty || r.touched)" class="help is-uppercase has-text-danger">
+                <p *ngIf="r.errors.required">r is required</p>
+                <p *ngIf="r.errors.min">r must be above 0</p>
+                <p *ngIf="r.errors.max">r must be below 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">q:</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <input class="input" type="number" min="0" max="1" step="0.01" formControlName="q">
+              <p class="help is-uppercase">вероятность ремонта за 1 шаг</p>
+              <div *ngIf="q.invalid && (q.dirty || q.touched)" class="help is-uppercase has-text-danger">
+                <p *ngIf="q.errors.required">r is required</p>
+                <p *ngIf="q.errors.min">r must be above 0</p>
+                <p *ngIf="q.errors.max">r must be below 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+
+    <div class="column">
+      <fieldset disabled>
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">1-r:</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <span>{{ ir }}</span>
+              <p class="help is-uppercase">вероятность не отказа за 1 шаг</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label">
+            <label class="label">1-q:</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <span>{{ iq }}</span>
+              <p class="help is-uppercase">вероятность не ремонта за 1 шаг</p>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+  </div>
+  <hr>
+
+  <div class="columns">
+
+    <div class="column">
+      <h2 class="is-size-5 has-text-weight-semibold">Матрица переходных состояний</h2>
+      <table class="table is-bordered is-fullwidth">
+        <tr>
+          <th>P</th>
+          <th>S0</th>
+          <th>S1</th>
+          <th>S2</th>
+          <th>S3</th>
+          <th>&#8721;</th>
+        </tr>
+        <tr>
+          <th>S0</th>
+          <td *ngFor="let val of transitionMatrix[0]">{{ val | number: '1.0-4' }}</td>
+          <td>{{ rowsSum[0] }}</td>
+        </tr>
+        <tr>
+          <th>S1</th>
+          <td *ngFor="let val of transitionMatrix[1]">{{ val | number: '1.0-4' }}</td>
+          <td>{{ rowsSum[1] }}</td>
+        </tr>
+        <tr>
+          <th>S2</th>
+          <td *ngFor="let val of transitionMatrix[2]">{{ val | number: '1.0-4' }}</td>
+          <td>{{ rowsSum[2] }}</td>
+        </tr>
+        <tr>
+          <th>S3</th>
+          <td *ngFor="let val of transitionMatrix[3]">{{ val | number: '1.0-4' }}</td>
+          <td>{{ rowsSum[3] }}</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2 class="is-size-5 has-text-weight-semibold">Система для поиска стационарного рапределения</h2>
+      <table class="table is-bordered is-fullwidth">
+        <tr *ngFor="let row of system; let i = index">
+          <td *ngFor="let val of row">{{ val | number: '1.0-4' }}</td>
+          <td>=</td>
+          <td>{{ sumSys[i] }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="column">
+      <h2 class="is-size-5 has-text-weight-semibold">Обратная матрица</h2>
+      <table class="table is-bordered">
+        <tr *ngFor="let row of invM">
+          <td *ngFor="let val of row">{{ val | number: '1.0-4' }}</td>
+        </tr>
+      </table>
+
+      <div class="columns">
+
+        <div class="column">
+          <table class="table is-bordered">
+            <thead class="is-size-5 has-text-weight-semibold">Стационарное распределение р</thead>
+            <tr *ngFor="let val of multiM">
+              <td>{{ val | number: '1.0-4' }}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="column">
+          <table class="table is-bordered">
+            <thead class="is-size-5 has-text-weight-semibold">Проверка</thead>
+            <tr *ngFor="let val of statD">
+              <td>{{ val | number: '1.0-4' }}</td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
