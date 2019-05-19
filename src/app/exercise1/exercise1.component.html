@@ -1,3 +1,24 @@
-<p>
-  exercise1 works!
-</p>
+<div class="columns">
+  <div class="column">
+    <div class="container">
+      <h2 class="is-size-5 has-text-weight-semibold">Матрица переходных состояний</h2>
+      <form [formGroup]="transitionMatrixForm">
+        <table class="table is-bordered is-fullwidth">
+          <tr>
+            <th>P</th>
+            <th>S0</th>
+            <th>S1</th>
+            <th>S2</th>
+            <th>S3</th>
+            <th>&#8721;</th>
+          </tr>
+          <tr *ngFor="let row of matrixVals">
+            <td *ngFor="let val of row">
+                <app-dynamic-form-val [question]="val" [form]="transitionMatrixForm"></app-dynamic-form-val>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
