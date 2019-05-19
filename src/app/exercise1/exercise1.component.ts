@@ -19,6 +19,7 @@ export class Exercise1Component implements OnInit {
   sumOfRows: number[] = [];
   initialStateDispersion: number[] = INITIAL_STATE_DISPERSION;
   initialStateDispersionForm: FormGroup;
+  sumOfInitialState = 1;
 
   constructor(
     private matrixControlService: MatrixControlService,
@@ -39,6 +40,8 @@ export class Exercise1Component implements OnInit {
       fifth: new FormControl(+this.initialStateDispersion[4]),
     });
 
+    this.initialStateDispersionForm.valueChanges.subscribe(vals => this.onChangeInitState(vals));
+
     this.transitionMatrixForm.valueChanges.subscribe(vals => {
       this.matrix = this.matrixService.toMatrix(vals);
       this.changeSum();
@@ -47,6 +50,14 @@ export class Exercise1Component implements OnInit {
 
   changeSum() {
     this.sumOfRows = this.matrixService.getSumOfRows(this.matrix);
+  }
+
+  onChangeInitState(vals) {
+    let sum = 0;
+    for (const val of Object.keys(vals)) {
+      sum += vals[val];
+    }
+    this.sumOfInitialState = +sum.toFixed(3);
   }
 
 }
