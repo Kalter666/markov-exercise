@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MathType } from 'mathjs';
 
 import { MatrixBase } from './matrix-base';
 import { MatrixControlService } from './matrix-control.service';
@@ -21,11 +22,19 @@ export class Exercise1Component implements OnInit {
   initialStateDispersionForm: FormGroup;
   sumOfInitialState = 1;
 
+  nthStateMatrix: MathType;
+  state = 2;
+  stateGroup: FormGroup;
+
+  stateDispersions = [];
+
   constructor(
     private matrixControlService: MatrixControlService,
     private matrixService: MatrixService
   ) {
-    this.changeSum();
+    this.sumOfRows = this.matrixService.getSumOfRows(this.matrix);
+    this.nthStateMatrix = this.matrixService.matrixPow(this.matrix, this.state);
+    this.stateDispersions = this.matrixService.getDispersion(this.matrix, this.state, this.initialStateDispersion);
   }
 
   ngOnInit() {
@@ -40,16 +49,30 @@ export class Exercise1Component implements OnInit {
       fifth: new FormControl(+this.initialStateDispersion[4]),
     });
 
+    this.stateGroup = new FormGroup({
+      n: new FormControl(this.state)
+    });
+
+    this.stateGroup.valueChanges.subscribe(vals => this.onChangeState(vals));
+
     this.initialStateDispersionForm.valueChanges.subscribe(vals => this.onChangeInitState(vals));
 
     this.transitionMatrixForm.valueChanges.subscribe(vals => {
-      this.matrix = this.matrixService.toMatrix(vals);
-      this.changeSum();
+      this.onChangeTransitionMatrix(vals);
     });
   }
 
-  changeSum() {
+  onChangeTransitionMatrix(vals) {
+    this.matrix = this.matrixService.toMatrix(vals);
     this.sumOfRows = this.matrixService.getSumOfRows(this.matrix);
+    this.nthStateMatrix = this.matrixService.matrixPow(this.matrix, this.state);
+    this.stateDispersions = this.matrixService.getDispersion(this.matrix, this.state, this.initialStateDispersion);
+  }
+
+  onChangeState({ n }) {
+    this.state = n;
+    this.nthStateMatrix = this.matrixService.matrixPow(this.matrix, n);
+    this.stateDispersions = this.matrixService.getDispersion(this.matrix, this.state, this.initialStateDispersion);
   }
 
   onChangeInitState(vals) {

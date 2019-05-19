@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { pow, MathType, multiply } from 'mathjs';
 
 import { MatrixBase } from './matrix-base';
 
@@ -16,7 +17,7 @@ export const INITIAL_STATE_DISPERSION = [0.8, 0.2, 0, 0, 0];
   providedIn: 'root'
 })
 export class MatrixService {
-  initial = INITIAL_MATRIX;
+ private initial = INITIAL_MATRIX;
 
   constructor() { }
 
@@ -62,5 +63,27 @@ export class MatrixService {
       sum.push(+row.reduce(reducer).toFixed(3));
     });
     return sum;
+  }
+
+  matrixPow(matrix: number[][] | MathType, times: number) {
+    return pow(matrix, times);
+  }
+
+  getDispersion(matrix: MathType, state: number, initialStateDispersion: number[]) {
+    let stateDispersion = initialStateDispersion;
+    let nthMatrix = matrix;
+    const dispersions = [stateDispersion];
+
+    for (let i = 1; i <= state; i++) {
+      nthMatrix = this.matrixPow(matrix, i);
+      stateDispersion = this.getNextDispersion(nthMatrix, stateDispersion);
+      dispersions.push(stateDispersion);
+    }
+
+    return dispersions;
+  }
+
+  private getNextDispersion(matrix: MathType, stateDispersion: number[] | MathType): any {
+    return multiply(stateDispersion, matrix);
   }
 }

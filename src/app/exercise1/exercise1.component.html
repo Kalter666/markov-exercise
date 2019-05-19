@@ -8,9 +8,11 @@
         <th>S1</th>
         <th>S2</th>
         <th>S3</th>
+        <th>S4</th>
         <th>&#8721;</th>
       </tr>
       <tr *ngFor="let row of matrixVals; index as i">
+        <td>S{{ i }}</td>
         <td *ngFor="let val of row">
           <app-dynamic-form-val [question]="val" [form]="transitionMatrixForm"></app-dynamic-form-val>
         </td>
@@ -58,4 +60,49 @@
     {{ sumOfInitialState }}
   </div>
 </div>
+
+<div class="container">
+  <form [formGroup]="stateGroup">
+    <div class="field is-horizontal">
+      <label>Номер состояния: </label>
+      <input type="number" class="input" min="1" max="100" step="1" formControlName="n">
+    </div>
+  </form>
+</div>
+
 <hr>
+
+<div class="container">
+  <h2 class="is-size-5 has-text-weight-semibold">Матрица переходных вероятностей системы <b>P({{ state }})</b>:</h2>
+  <table class="table is-bordered is-fullwidth">
+    <tr>
+      <th>P</th>
+      <th>S0</th>
+      <th>S1</th>
+      <th>S2</th>
+      <th>S3</th>
+      <th>S4</th>
+    </tr>
+    <tr *ngFor="let row of nthStateMatrix; index as i">
+      <td>S{{ i }}</td>
+      <td *ngFor="let val of row">{{ val }}</td>
+    </tr>
+  </table>
+</div>
+<div class="container">
+  <h2 class="is-size-5 has-text-weight-semibold">Распределение вероятностей состояний для шага <b>{{ state }}</b>:</h2>
+  <table class="table is-bordered is-fullwidth">
+    <tr>
+      <th>#</th>
+      <th>&#960;<sub> 0</sub></th>
+      <th>&#960;<sub> 1</sub></th>
+      <th>&#960;<sub> 2</sub></th>
+      <th>&#960;<sub> 3</sub></th>
+      <th>&#960;<sub> 4</sub></th>
+    </tr>
+    <tr *ngFor="let row of stateDispersions; index as i">
+      <td>{{ i }}</td>
+      <td *ngFor="let val of row">{{ val }}</td>
+    </tr>
+  </table>
+</div>
