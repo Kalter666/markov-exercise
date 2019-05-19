@@ -35,6 +35,9 @@ MIT
 @angular/platform-browser
 MIT
 
+@angular/router
+MIT
+
 complex.js
 MIT OR GPL-2.0
 MIT License
