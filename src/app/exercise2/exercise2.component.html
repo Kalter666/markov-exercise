@@ -1,3 +1,40 @@
-<p>
-  exercise2 works!
-</p>
+<div class="container">
+  <h2 class="is-size-5 has-text-weight-semibold">Матрица переходных состояний</h2>
+  <form [formGroup]="transitionMatrixForm">
+    <table class="table is-bordered is-fullwidth">
+      <tr>
+        <th>P</th>
+        <th>S0</th>
+        <th>S1</th>
+        <th>S2</th>
+        <th>S3</th>
+        <th>S4</th>
+        <th>&#8721;</th>
+      </tr>
+      <tr *ngFor="let row of matrixVals; index as i">
+        <td>S{{ i }}</td>
+        <td *ngFor="let val of row">
+          <app-dynamic-form-val [question]="val" [form]="transitionMatrixForm"></app-dynamic-form-val>
+        </td>
+        <td>{{ sumOfRows[i] }}</td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<div class="container">
+  <table class="table is-bordered is-fullwidth">
+    <tr>
+      <th>#</th>
+      <th>&#960;</th>
+    </tr>
+    <tr *ngFor="let val of finalDispersion; index as i">
+      <td>{{ i + 1 }}</td>
+      <td>{{ val }}</td>
+    </tr>
+    <tr>
+      <td>&#8721;</td>
+      <td>{{ sumOfDispersion }}</td>
+    </tr>
+  </table>
+</div>
