@@ -12,10 +12,11 @@
             <th>S3</th>
             <th>&#8721;</th>
           </tr>
-          <tr *ngFor="let row of matrixVals">
+          <tr *ngFor="let row of matrixVals; index as i">
             <td *ngFor="let val of row">
                 <app-dynamic-form-val [question]="val" [form]="transitionMatrixForm"></app-dynamic-form-val>
             </td>
+            <td>{{ sumOfRows[i] }}</td>
           </tr>
         </table>
       </form>
