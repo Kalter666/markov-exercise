@@ -16,7 +16,7 @@
         <td *ngFor="let val of row">
           <app-dynamic-form-val [question]="val" [form]="transitionMatrixForm"></app-dynamic-form-val>
         </td>
-        <td>{{ sumOfRows[i] }}</td>
+        <td>{{ sumOfRows[i].toFixed(2) }}</td>
       </tr>
     </table>
   </form>
@@ -34,7 +34,7 @@
     </tr>
     <tr>
       <td>&#8721;</td>
-      <td>{{ sumOfDispersion }}</td>
+      <td>{{ sumOfDispersion.toFixed(0) }}</td>
     </tr>
   </table>
 </div>

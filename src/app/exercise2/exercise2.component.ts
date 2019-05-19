@@ -6,10 +6,10 @@ import { MatrixControlService } from '../exercise1/matrix-control.service';
 import { MatrixService } from '../exercise1/matrix.service';
 
 const INITIAL_MATRIX = [
-  [0.8, 0.1, 0, 0.1, 0],
+  [0.7, 0.1, 0.1, 0.1, 0],
   [0, 0.3, 0.6, 0, 0.1],
   [0.8, 0, 0.2, 0, 0],
-  [0.7, 0, 0.1, 0.1, 0.1],
+  [0.6, 0, 0.2, 0.1, 0.1],
   [0.1, 0, 0, 0, 0.9],
 ];
 
