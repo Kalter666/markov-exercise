@@ -75,7 +75,7 @@ export class MatrixService {
 
     for (let i = 1; i <= state; i++) {
       nthMatrix = this.matrixPow(matrix, i);
-      stateDispersion = this.getNextDispersion(nthMatrix, stateDispersion);
+      stateDispersion = this.getNextDispersion(nthMatrix, initialStateDispersion);
       dispersions.push(stateDispersion);
     }
 
